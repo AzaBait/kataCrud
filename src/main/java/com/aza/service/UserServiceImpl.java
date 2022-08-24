@@ -1,41 +1,43 @@
 package com.aza.service;
 
-import com.aza.dao.UserRepo;
+import com.aza.dao.UserDao;
 import com.aza.model.User;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
+
 @Service
+@Transactional
 public class UserServiceImpl implements UserService{
-    private UserRepo userRepo;
+   private UserDao userDao;
 
-    public UserServiceImpl(UserRepo userRepo) {
-        this.userRepo = userRepo;
-    }
+ public UserServiceImpl(UserDao userDao) {
+  this.userDao = userDao;
+ }
 
-    @Override
+ @Override
     public void save(User user) {
-    userRepo.save(user);
+    userDao.save(user);
     }
 
     @Override
-    public Optional<User> getById(Long id) {
-        return userRepo.findById(id);
+    public Object getById(Long id) {
+     return userDao.getById(id);
     }
 
     @Override
     public void update(User user) {
-    userRepo.save(user);
+    userDao.update(user);
     }
 
     @Override
     public void delete(Long id) {
-    userRepo.deleteById(id);
+    userDao.delete(id);
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userRepo.findAll();
+        return userDao.getAllUsers();
     }
 }
